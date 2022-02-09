@@ -33,7 +33,7 @@ namespace Mao
         {
             Deck deck = new Deck();
             List<Card> hand = new List<Card>();
-            List<Rectangle> visibleHand = new List<Rectangle>();
+            List<Button> visibleHand = new List<Button>();
             string cardFilePath;
             //Card objects and information
             Card newCard1 = new Card(deck);
@@ -52,13 +52,13 @@ namespace Mao
             hand.Add(newCard6);
             hand.Add(newCard7);
             //Rectangle card representation
-            Rectangle card1 = new Rectangle() { Tag = newCard1.CardName };
-            Rectangle card2 = new Rectangle() { Tag = newCard2.CardName };
-            Rectangle card3 = new Rectangle() { Tag = newCard3.CardName };
-            Rectangle card4 = new Rectangle() { Tag = newCard4.CardName };
-            Rectangle card5 = new Rectangle() { Tag = newCard5.CardName };
-            Rectangle card6 = new Rectangle() { Tag = newCard6.CardName };
-            Rectangle card7 = new Rectangle() { Tag = newCard7.CardName };
+            Button card1 = new Button() { Tag = newCard1.CardName };
+            Button card2 = new Button() { Tag = newCard2.CardName };
+            Button card3 = new Button() { Tag = newCard3.CardName };
+            Button card4 = new Button() { Tag = newCard4.CardName };
+            Button card5 = new Button() { Tag = newCard5.CardName };
+            Button card6 = new Button() { Tag = newCard6.CardName };
+            Button card7 = new Button() { Tag = newCard7.CardName };
             //Adding rectangles to hand
             visibleHand.Add(card1);
             visibleHand.Add(card2);
@@ -68,15 +68,14 @@ namespace Mao
             visibleHand.Add(card6);
             visibleHand.Add(card7);
             //Styling the rectangles
-            foreach (Rectangle card in visibleHand)
+            foreach (Button card in visibleHand)
             {
                 cardFilePath = @"..\..\images\cards\" + card.Tag +".png";
                 card.Height = 100;
                 card.Width = 70;
-                card.Fill = new ImageBrush
-                {
-                    ImageSource = new BitmapImage(new Uri(cardFilePath, UriKind.Relative))
-                };
+                ImageBrush imgBrush = new ImageBrush();
+                imgBrush.ImageSource = new BitmapImage(new Uri(cardFilePath, UriKind.Relative));
+                card.Background = imgBrush;
                 Canvas.SetTop(card, 150);
                 Canvas.SetLeft(card, xLocation);
                 xLocation += 20;
