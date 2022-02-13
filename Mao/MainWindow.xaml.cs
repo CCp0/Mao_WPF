@@ -26,6 +26,14 @@ namespace Mao
         double xPHandLocation = 150;//Sets the distance from the left where the hand is shown
         double xDHandLocation = 200;
         Deck deck = new Deck();//Creates Deck
+        //Player Card List
+        List<Card> pHand = new List<Card>();
+        List<Button> pVisibleHand = new List<Button>();
+        //Dealer Card List
+        List<Card> dHand = new List<Card>();
+        List<Button> dVisibleHand = new List<Button>();
+        //Board
+        List<Card> cardsInPlay = new List<Card>();
         public MainWindow()
         {
             InitializeComponent();
@@ -33,51 +41,26 @@ namespace Mao
         }
         public void GenerateTable()
         {
-            PlayerHand();
-            DealerHand();
+            //General Rule Varaibles
+            int handSize = 7;
+            PlayerHand(handSize);
+            DealerHand(handSize);
             CardsInPlay();
         }
         //Hand Methods
-        public void PlayerHand()
+        public void AddCard(bool player)
         {
-            List<Card> hand = new List<Card>();
-            List<Button> visibleHand = new List<Button>();
             string cardFilePath;
             //Card objects and information
-            Card newCard1 = new Card(deck);
-            Card newCard2 = new Card(deck);
-            Card newCard3 = new Card(deck);
-            Card newCard4 = new Card(deck);
-            Card newCard5 = new Card(deck);
-            Card newCard6 = new Card(deck);
-            Card newCard7 = new Card(deck);
-            //Adding cards to hand
-            hand.Add(newCard1);
-            hand.Add(newCard2);
-            hand.Add(newCard3);
-            hand.Add(newCard4);
-            hand.Add(newCard5);
-            hand.Add(newCard6);
-            hand.Add(newCard7);
+            Card newCard = new Card(deck);
             //Rectangle card representation
-            Button card1 = new Button() { Tag = newCard1.CardName };
-            Button card2 = new Button() { Tag = newCard2.CardName };
-            Button card3 = new Button() { Tag = newCard3.CardName };
-            Button card4 = new Button() { Tag = newCard4.CardName };
-            Button card5 = new Button() { Tag = newCard5.CardName };
-            Button card6 = new Button() { Tag = newCard6.CardName };
-            Button card7 = new Button() { Tag = newCard7.CardName };
-            //Adding rectangles to hand
-            visibleHand.Add(card1);
-            visibleHand.Add(card2);
-            visibleHand.Add(card3);
-            visibleHand.Add(card4);
-            visibleHand.Add(card5);
-            visibleHand.Add(card6);
-            visibleHand.Add(card7);
-            //Styling the visible cards
-            foreach (Button card in visibleHand)
+            Button card = new Button() { Tag = newCard.CardName };
+            if (player == true) //If Player Hand
             {
+                //Adding cards to hand
+                pHand.Add(newCard);
+                //Adding rectangles to hand
+                pVisibleHand.Add(card);
                 //Card Appearance
                 cardFilePath = @"..\..\images\cards\" + card.Tag + ".png";
                 card.Height = 100;
@@ -92,55 +75,13 @@ namespace Mao
                 //Card Logic
                 card.Click += Card_Click;
             }
-            //Adding the cards to the table
-            table.Children.Add(card1);
-            table.Children.Add(card2);
-            table.Children.Add(card3);
-            table.Children.Add(card4);
-            table.Children.Add(card5);
-            table.Children.Add(card6);
-            table.Children.Add(card7);
-        }
-        public void DealerHand()
-        {//Pretty much same logic as PlayerHand() with changes to the display (Cannt see dealers hand)
-            List<Card> hand = new List<Card>();
-            List<Button> visibleHand = new List<Button>();
-            //Card objects and information
-            Card newCard1 = new Card(deck);
-            Card newCard2 = new Card(deck);
-            Card newCard3 = new Card(deck);
-            Card newCard4 = new Card(deck);
-            Card newCard5 = new Card(deck);
-            Card newCard6 = new Card(deck);
-            Card newCard7 = new Card(deck);
-            //Adding cards to hand
-            hand.Add(newCard1);
-            hand.Add(newCard2);
-            hand.Add(newCard3);
-            hand.Add(newCard4);
-            hand.Add(newCard5);
-            hand.Add(newCard6);
-            hand.Add(newCard7);
-            //Rectangle card representation
-            Button card1 = new Button() { Tag = newCard1.CardName };
-            Button card2 = new Button() { Tag = newCard2.CardName };
-            Button card3 = new Button() { Tag = newCard3.CardName };
-            Button card4 = new Button() { Tag = newCard4.CardName };
-            Button card5 = new Button() { Tag = newCard5.CardName };
-            Button card6 = new Button() { Tag = newCard6.CardName };
-            Button card7 = new Button() { Tag = newCard7.CardName };
-            //Adding rectangles to hand
-            visibleHand.Add(card1);
-            visibleHand.Add(card2);
-            visibleHand.Add(card3);
-            visibleHand.Add(card4);
-            visibleHand.Add(card5);
-            visibleHand.Add(card6);
-            visibleHand.Add(card7);
-            //Styling the rectangles
-            foreach (Button card in visibleHand)
+            else if(player == false) //If Dealer Hand
             {
-                string cardFilePath = @"..\..\images\cards\cardback.png";
+                //Adding cards to hand
+                dHand.Add(newCard);
+                //Adding rectangles to hand
+                dVisibleHand.Add(card);
+                cardFilePath = @"..\..\images\cards\cardback.png";
                 card.Height = 60;
                 card.Width = 40;
                 ImageBrush imgBrush = new ImageBrush();
@@ -151,21 +92,36 @@ namespace Mao
                 xDHandLocation += 20;
             }
             //Adding the cards to the table
-            table.Children.Add(card1);
-            table.Children.Add(card2);
-            table.Children.Add(card3);
-            table.Children.Add(card4);
-            table.Children.Add(card5);
-            table.Children.Add(card6);
-            table.Children.Add(card7);
+            table.Children.Add(card);
+        }
+        public void PlayerHand(int handSize)
+        {
+            bool player = true;
+            for (int i = 0; i < handSize; i++)
+            {
+                AddCard(player);
+            }
+        }
+        public void DealerHand(int handSize)
+        {
+            bool player = false;
+            for (int i = 0; i < handSize; i++)
+            {
+                AddCard(player);
+            }
         }
         public void CardsInPlay()
         {
-            List<Card> cards = new List<Card>();
+            
         }
         private void Card_Click(object sender, RoutedEventArgs e)
         {
+            var card = ((Button)sender).Tag;//Calls the tag/cardname given to the card button in the PlayerHand method
+            MessageBox.Show(card.ToString());
+            if(card == cardsInPlay[cardsInPlay.Count])
+            {
 
+            }
         }
     }
 }
