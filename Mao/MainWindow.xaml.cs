@@ -54,7 +54,7 @@ namespace Mao
             //Card objects and information
             Card newCard = new Card(deck);
             //Rectangle card representation
-            Button card = new Button() { Tag = newCard.CardName };
+            Button card = new Button() { Tag = newCard.CardName};
             if (player == true) //If Player Hand
             {
                 //Adding cards to hand
@@ -112,16 +112,21 @@ namespace Mao
         }
         public void CardsInPlay()
         {
-            
+            //AddCard();
         }
         private void Card_Click(object sender, RoutedEventArgs e)
         {
             var card = ((Button)sender).Tag;//Calls the tag/cardname given to the card button in the PlayerHand method
+            bool valid = false;
             MessageBox.Show(card.ToString());
-            if(card == cardsInPlay[cardsInPlay.Count])
-            {
-
-            }
+            //if(card == cardsInPlay[cardsInPlay.Count])//Card value
+            //{
+            //    valid = true;
+            //}
+            //else if(card == cardsInPlay[cardsInPlay.Count])//Card suit
+            //{
+            //    valid = true;
+            //}
         }
     }
 }
