@@ -7,20 +7,18 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Ellipse Fill="#FF09BB00" HorizontalAlignment="Left" Height="286" Margin="10,123,0,0" Stroke="Black" VerticalAlignment="Top" Width="772"/>
-        <Button x:Name="btnMao" Content="Mao" HorizontalAlignment="Left" Margin="33,48,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button x:Name="btnMaoMao" Content="Mao Mao" HorizontalAlignment="Left" Margin="33,73,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button x:Name="btnConcede" Content="Concede" HorizontalAlignment="Left" Margin="33,98,0,0" VerticalAlignment="Top" Width="75"/>
-        <Label Content="Actions" HorizontalAlignment="Left" Margin="33,10,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="btnDeck" HorizontalAlignment="Left" Margin="233,207,0,0" VerticalAlignment="Top" Width="52" Height="77" Background="Black">
+        <Canvas x:Name="table" HorizontalAlignment="Left" Height="299" Margin="10,110,0,0" VerticalAlignment="Top" Width="772" Background="Green"/>
+        <Button x:Name="btnMao" Content="Mao" HorizontalAlignment="Left" Margin="34,35,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="btnMaoMao" Content="Mao Mao" HorizontalAlignment="Left" Margin="34,60,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="btnConcede" Content="Concede" HorizontalAlignment="Left" Margin="34,85,0,0" VerticalAlignment="Top" Width="75"/>
+        <Label Content="Actions" HorizontalAlignment="Left" Margin="34,5,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="btnDeck" HorizontalAlignment="Left" Margin="233,190,0,0" VerticalAlignment="Top" Width="52" Height="77" Background="Black">
             <Image Source="/images/cards/cardback.png"/>
         </Button>
         <Button HorizontalAlignment="Left" Margin="728,16,0,0" VerticalAlignment="Top" Width="41" Height="38" Background="White">
             <Image Source="/images/icons/ruleBook.png"/>
         </Button>
         <Label Content="Rules" HorizontalAlignment="Left" Margin="728,48,0,0" VerticalAlignment="Top" Width="41"/>
-        <StackPanel x:Name="stackPanel" Orientation = "Horizontal" HorizontalAlignment="Left" Height="90" Margin="136,289,0,0" VerticalAlignment="Top" Width="520"/>
-        <Button x:Name="btnPlayCard" Content="Play Card" HorizontalAlignment="Left" Margin="362,379,0,10" Width="75" Click="btnPlayCard_Click" Background="#FFFFC500"/>
-        <Image HorizontalAlignment="Left" Height="100" Margin="365,23,0,0" VerticalAlignment="Top" Width="72" Source="images/icons/dealer.png"/>
+        <Image HorizontalAlignment="Left" Height="100" Margin="367,10,0,0" VerticalAlignment="Top" Width="72" Source="images/icons/dealer.png"/>
     </Grid>
 </Window>

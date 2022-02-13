@@ -96,5 +96,63 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\cards\Ace of Clubs.png" />
+    <Resource Include="images\cards\Ace Of Diamonds.png" />
+    <Resource Include="images\cards\Ace of Hearts.png" />
+    <Resource Include="images\cards\Ace of Spades.png" />
+    <Resource Include="images\cards\cardback.png" />
+    <Resource Include="images\cards\Eight of Clubs.png" />
+    <Resource Include="images\cards\Eight of Diamonds.png" />
+    <Resource Include="images\cards\Eight of Hearts.png" />
+    <Resource Include="images\cards\Eight of Spades.png" />
+    <Resource Include="images\cards\Five of Clubs.png" />
+    <Resource Include="images\cards\Five of Diamonds.png" />
+    <Resource Include="images\cards\Five of Hearts.png" />
+    <Resource Include="images\cards\Five of Spades.png" />
+    <Resource Include="images\cards\Four of Clubs.png" />
+    <Resource Include="images\cards\Four of Diamonds.png" />
+    <Resource Include="images\cards\Four of Hearts.png" />
+    <Resource Include="images\cards\Four of Spades.png" />
+    <Resource Include="images\cards\Jack of Clubs.png" />
+    <Resource Include="images\cards\Jack of Diamonds.png" />
+    <Resource Include="images\cards\Jack of Hearts.png" />
+    <Resource Include="images\cards\Jack of Spades.png" />
+    <Resource Include="images\cards\King of Clubs.png" />
+    <Resource Include="images\cards\King of Diamonds.png" />
+    <Resource Include="images\cards\King of Hearts.png" />
+    <Resource Include="images\cards\King of Spades.png" />
+    <Resource Include="images\cards\Nine of Clubs.png" />
+    <Resource Include="images\cards\Nine of Diamonds.png" />
+    <Resource Include="images\cards\Nine of Hearts.png" />
+    <Resource Include="images\cards\Nine of Spades.png" />
+    <Resource Include="images\cards\Queen of Clubs.png" />
+    <Resource Include="images\cards\Queen of Diamonds.png" />
+    <Resource Include="images\cards\Queen of Hearts.png" />
+    <Resource Include="images\cards\Queen of Spades.png" />
+    <Resource Include="images\cards\Seven of Clubs.png" />
+    <Resource Include="images\cards\Seven of Diamonds.png" />
+    <Resource Include="images\cards\Seven of Hearts.png" />
+    <Resource Include="images\cards\Seven of Spades.png" />
+    <Resource Include="images\cards\Six of Clubs.png" />
+    <Resource Include="images\cards\Six of Diamonds.png" />
+    <Resource Include="images\cards\Six of Hearts.png" />
+    <Resource Include="images\cards\Six of Spades.png" />
+    <Resource Include="images\cards\Ten of Clubs.png" />
+    <Resource Include="images\cards\Ten of Diamonds.png" />
+    <Resource Include="images\cards\Ten of Hearts.png" />
+    <Resource Include="images\cards\Ten of Spades.png" />
+    <Resource Include="images\cards\Three of Clubs.png" />
+    <Resource Include="images\cards\Three of Diamonds.png" />
+    <Resource Include="images\cards\Three of Hearts.png" />
+    <Resource Include="images\cards\Three of Spades.png" />
+    <Resource Include="images\cards\Two of Clubs.png" />
+    <Resource Include="images\cards\Two Of Diamonds.png" />
+    <Resource Include="images\cards\Two of Hearts.png" />
+    <Resource Include="images\cards\Two of Spades.png" />
+    <Resource Include="images\icons\dealer.png" />
+    <Resource Include="images\icons\ruleBook.jpg" />
+    <Resource Include="images\icons\ruleBook.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
