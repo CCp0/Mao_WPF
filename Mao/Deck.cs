@@ -23,7 +23,7 @@ namespace Mao
             Random random = new Random(); //Random number generator
             string[] cardNames = { "Ace", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King" };
             string[] cardSuit = { "Hearts", "Clubs", "Spades", "Diamonds" };
-            int[] _cValuesArray = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11 };//Declaration of score values
+            int[] _cValuesArray = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 };//Declaration of score values
             int nameIndex = random.Next(cardNames.Length), suitIndex = random.Next(cardSuit.Length);//Declaration of random card index
             string newCard = cardNames[nameIndex] + " of " + cardSuit[suitIndex];//Predefined for the first card dealt
             for (int i = 0; i < hand.Count; i++)
@@ -40,6 +40,7 @@ namespace Mao
             hand.Add(newCard);                      //Adds the new card to the hand
             CardName = newCard;                     //Card names and card suits are combined to make the full CardName
             CardValue = _cValuesArray[nameIndex];   //The index for both name array and value array correspond to each other
+            CardSuit = cardSuit[suitIndex];
         }
         public void TotalReset(List<Card> cards)
         {
