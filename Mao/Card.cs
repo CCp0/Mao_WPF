@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Mao
 {
-    class Card
+    public class Card
     {
         public Card(Deck deck)
         {

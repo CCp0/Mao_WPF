@@ -48,26 +48,20 @@ namespace Mao
             CardsInPlay();
         }
         //Hand Methods
-        public void AddCard(bool player)
+        public void AddCard(bool player, List<Card> hand, List<Button> visibleHand)
         {
-            string cardFilePath;
+            string cardFilePath = @"..\..\images\cards\cardback.png"; ;
             //Card objects and information
             Card newCard = new Card(deck);
             //Rectangle card representation
             Button card = new Button() { Tag = newCard.CardName};
+            hand.Add(newCard);//Adding cards to hand
+            visibleHand.Add(card);//Adding rectangles to hand
             if (player == true) //If Player Hand
             {
-                //Adding cards to hand
-                pHand.Add(newCard);
-                //Adding rectangles to hand
-                pVisibleHand.Add(card);
-                //Card Appearance
                 cardFilePath = @"..\..\images\cards\" + card.Tag + ".png";
                 card.Height = 100;
                 card.Width = 70;
-                ImageBrush imgBrush = new ImageBrush();
-                imgBrush.ImageSource = new BitmapImage(new Uri(cardFilePath, UriKind.Relative));
-                card.Background = imgBrush;
                 //Card Position
                 Canvas.SetTop(card, 180);
                 Canvas.SetLeft(card, xPHandLocation);
@@ -77,20 +71,16 @@ namespace Mao
             }
             else if(player == false) //If Dealer Hand
             {
-                //Adding cards to hand
-                dHand.Add(newCard);
-                //Adding rectangles to hand
-                dVisibleHand.Add(card);
-                cardFilePath = @"..\..\images\cards\cardback.png";
                 card.Height = 60;
                 card.Width = 40;
-                ImageBrush imgBrush = new ImageBrush();
-                imgBrush.ImageSource = new BitmapImage(new Uri(cardFilePath, UriKind.Relative));
-                card.Background = imgBrush;
                 Canvas.SetTop(card, 10);
                 Canvas.SetLeft(card, xDHandLocation);
                 xDHandLocation += 20;
             }
+            //Card Appearance
+            ImageBrush imgBrush = new ImageBrush();
+            imgBrush.ImageSource = new BitmapImage(new Uri(cardFilePath, UriKind.Relative));
+            card.Background = imgBrush;
             //Adding the cards to the table
             table.Children.Add(card);
         }
@@ -99,7 +89,7 @@ namespace Mao
             bool player = true;
             for (int i = 0; i < handSize; i++)
             {
-                AddCard(player);
+                AddCard(player, pHand, pVisibleHand);
             }
         }
         public void DealerHand(int handSize)
@@ -107,7 +97,7 @@ namespace Mao
             bool player = false;
             for (int i = 0; i < handSize; i++)
             {
-                AddCard(player);
+                AddCard(player, dHand, dVisibleHand);
             }
         }
         public void CardsInPlay()

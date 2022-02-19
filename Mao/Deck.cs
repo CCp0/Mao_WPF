@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Mao
 {
-    class Deck
+    public class Deck
     {
         //All made card variables 
         private static List<string> hand = new List<string>(); //List of cards out of deck
