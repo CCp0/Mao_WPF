@@ -23,9 +23,9 @@ namespace Mao
     /// </summary>
     public partial class MainWindow : Window
     {
-        double xPHandLocation = 150;//Sets the distance from the left where the hand is shown
+        double xPHandLocation = 150;                            //Sets the distance from the left where the hand is shown
         double xDHandLocation = 200;
-        Deck deck = new Deck();//Creates Deck
+        Deck deck = new Deck();                                 //Creates Deck
         //Player Card List
         List<Card> pHand = new List<Card>();
         List<Button> pVisibleHand = new List<Button>();
@@ -51,7 +51,7 @@ namespace Mao
         public void AddCard(int recipient, List<Card> hand, List<Button> visibleHand)
         {
             Card newCard = new Card(deck);                          //Card objects and information
-            Button card = new Button() { Tag = newCard.CardName + " " + newCard.CardValue};   //Rectangle card representation
+            Button card = new Button() { Tag = newCard.CardName};   //Rectangle card representation
             hand.Add(newCard);                                      //Adding cards to hand
             visibleHand.Add(card);                                  //Adding rectangles to hand
             string cardFilePath = @"..\..\images\cards\" + newCard.CardName + ".png";
@@ -110,30 +110,45 @@ namespace Mao
         }
         private void Card_Click(object sender, RoutedEventArgs e)
         {
-            var card = ((Button)sender).Tag;//Calls the tag/cardname given to the card button in the PlayerHand method
-            string[] cardDetails = card.ToString().Split(' ');// [2]: Suit   [3]: Card Value
-            string suit = cardDetails[2];
-            int value = Convert.ToInt32(cardDetails[3]);
+            var card = ((Button)sender).Tag;                        //Calls the tag/cardname given to the card button in the PlayerHand method
             bool valid = false;
-            MessageBox.Show(cardsInPlay[cardsInPlay.Count - 1].CardName);
+            //Card Index Finder
+            int index = -1;
+            bool indexFound = false;
+            do
+            {
+                index++;
+                if (pHand[index].CardName == card.ToString())
+                {
+                    indexFound = true;
+                }
+            } while (indexFound == false);
             //Card Placement Validation
-            if (value == cardsInPlay[cardsInPlay.Count - 1].CardValue)//Card value
+            if (pHand[index].CardValue == cardsInPlay[cardsInPlay.Count - 1].CardValue)//Card values equal
             {
                 valid = true;
             }
-            else if (suit == cardsInPlay[cardsInPlay.Count - 1].CardSuit)//Card suit
+            else if (pHand[index].CardSuit == cardsInPlay[cardsInPlay.Count - 1].CardSuit)//Card suits equal
             {
                 valid = true;
             }
-            MessageBox.Show(cardsInPlay[cardsInPlay.Count - 1].CardSuit);
-            if (valid == true)
-            {
-                MessageBox.Show("Valid");
+
+            if (valid)
+            {   //Moves the card from hand to the cards in play
+                cardsInPlay.Add(pHand[index]);
+                visibleCardsInPlay.Add(pVisibleHand[index]);
+                pHand.RemoveAt(index);
+                table.Children.Remove(pVisibleHand[index]);
+                pVisibleHand.Remove(pVisibleHand[index]);
             }
             else
             {
                 MessageBox.Show("Invalid");
             }
+        }
+        private void btnDeck_Click(object sender, RoutedEventArgs e)
+        {
+            AddCard(1, pHand, pVisibleHand);
         }
     }
 }
