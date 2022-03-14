@@ -56,11 +56,12 @@ namespace Mao
             Button card = new Button() { Tag = newCard.CardName};   //Rectangle card representation
             hand.Add(newCard);                                      //Adding cards to hand
             visibleHand.Add(card);                                  //Adding rectangles to hand
+            Style removeHoverEffect = (Style)Resources["ButtonStyle"];
+            card.Style = removeHoverEffect;
             string cardFilePath = @"..\..\images\cards\" + newCard.CardName + ".png";
             card.Height = 100;
-            card.Width = 70;
-            //card.Style = ButtonStyle;                             //Removes default hover background
-            if (recipient == "player")     //If Player Hand
+            card.Width = 70;                            //Removes default hover background
+            if (recipient == "player")                  //If Player Hand
             {
                 //Card Position
                 Canvas.SetTop(card, 180);                           //yLocation
@@ -164,7 +165,7 @@ namespace Mao
                 table.Children.Remove(playerVisibleHand[index]);
                 table.Children.Add(visibleCardsInPlay[visibleCardsInPlay.Count - 1]);    //Adds card to the center of the board
                 playerVisibleHand.Remove(playerVisibleHand[index]);
-                Redraw(playerVisibleHand);
+                Redraw(playerVisibleHand);                                               //Condensing hand
             }
             else
             {
