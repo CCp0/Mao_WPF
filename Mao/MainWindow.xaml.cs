@@ -27,11 +27,11 @@ namespace Mao
         double xDHandLocation = 200;
         Deck deck = new Deck();                                 //Creates Deck
         //Player Card List
-        List<Card> pHand = new List<Card>();
-        List<Button> pVisibleHand = new List<Button>();
+        List<Card> playerHand = new List<Card>();
+        List<Button> playerVisibleHand = new List<Button>();
         //Dealer Card List
-        List<Card> dHand = new List<Card>();
-        List<Button> dVisibleHand = new List<Button>();
+        List<Card> dealerHand = new List<Card>();
+        List<Button> dealerVisibleHand = new List<Button>();
         //Board
         List<Card> cardsInPlay = new List<Card>();
         List<Button> visibleCardsInPlay = new List<Button>();
@@ -40,6 +40,7 @@ namespace Mao
             InitializeComponent();
             GenerateTable();
         }
+        //Populating the table with cards
         public void GenerateTable()
         { //General Rule Varaibles
             int handSize = 7;
@@ -48,24 +49,26 @@ namespace Mao
             CardsInPlay();
         }
         //Hand Methods
-        public void AddCard(int recipient, List<Card> hand, List<Button> visibleHand)
+        //Takes card from the deck
+        public void AddCard(string recipient, List<Card> hand, List<Button> visibleHand)
         {
             Card newCard = new Card(deck);                          //Card objects and information
             Button card = new Button() { Tag = newCard.CardName};   //Rectangle card representation
             hand.Add(newCard);                                      //Adding cards to hand
             visibleHand.Add(card);                                  //Adding rectangles to hand
             string cardFilePath = @"..\..\images\cards\" + newCard.CardName + ".png";
-            if (recipient == 1)     //If Player Hand
+            card.Height = 100;
+            card.Width = 70;
+            //card.Style = ButtonStyle;                             //Removes default hover background
+            if (recipient == "player")     //If Player Hand
             {
-                card.Height = 100;
-                card.Width = 70;
                 //Card Position
-                Canvas.SetTop(card, 180);
-                Canvas.SetLeft(card, xPHandLocation);
+                Canvas.SetTop(card, 180);                           //yLocation
+                Canvas.SetLeft(card, xPHandLocation);               //xLocation
                 xPHandLocation += 20;
                 card.Click += Card_Click;                           //Card Logic
             }
-            else if(recipient == 2) //If Dealer Hand
+            else if(recipient == "dealer") //If Dealer Hand
             {
                 cardFilePath = @"..\..\images\cards\cardback.png";
                 card.Height = 60;
@@ -74,10 +77,8 @@ namespace Mao
                 Canvas.SetLeft(card, xDHandLocation);
                 xDHandLocation += 20;
             }
-            else if (recipient == 3) //Cards In Play
+            else if (recipient ==  "board") //Cards In Play
             {
-                card.Height = 95;
-                card.Width = 65;
                 Canvas.SetTop(card, 80);
                 Canvas.SetLeft(card, 350);
             }
@@ -87,26 +88,46 @@ namespace Mao
             card.Background = imgBrush;
             table.Children.Add(card);                               //Adding the cards to the table
         }
-        public void PlayerHand(int handSize)
+        public void Redraw(List<Button> hand)
         {
-            int recipient = 1;
-            for (int i = 0; i < handSize; i++)
+            xPHandLocation = 150;
+            //Delete current hand from display
+            //Iterate hand, loop through and display cards
+            foreach(Button b in hand)
             {
-                AddCard(recipient, pHand, pVisibleHand);
+                table.Children.Remove(b);
+            }
+            foreach (Button b in hand)
+            {
+            Canvas.SetTop(b, 180);                           //yLocation
+            Canvas.SetLeft(b, xPHandLocation);               //xLocation
+            xPHandLocation += 20;
+            table.Children.Add(b);
             }
         }
-        public void DealerHand(int handSize)
+        //Initial population of player hand
+        public void PlayerHand(int handSize)
         {
-            int recipient = 2;
+
+            string playerType = "player";
             for (int i = 0; i < handSize; i++)
             {
-                AddCard(recipient, dHand, dVisibleHand);
+                AddCard(playerType, playerHand, playerVisibleHand);    
+            }
+        }
+        //Initial population of dealer hand
+        public void DealerHand(int handSize)
+        {
+            string playerType = "dealer";
+            for (int i = 0; i < handSize; i++)
+            {
+                AddCard(playerType, dealerHand, dealerVisibleHand);
             }
         }
         public void CardsInPlay()
         {
-            int recipient = 3;
-            AddCard(recipient, cardsInPlay, visibleCardsInPlay);
+            string playerType = "board";
+            AddCard(playerType, cardsInPlay, visibleCardsInPlay);
         }
         private void Card_Click(object sender, RoutedEventArgs e)
         {
@@ -118,37 +139,47 @@ namespace Mao
             do
             {
                 index++;
-                if (pHand[index].CardName == card.ToString())
+                if (playerHand[index].CardName == card.ToString())
                 {
                     indexFound = true;
                 }
             } while (indexFound == false);
             //Card Placement Validation
-            if (pHand[index].CardValue == cardsInPlay[cardsInPlay.Count - 1].CardValue)//Card values equal
+            if (playerHand[index].CardValue == cardsInPlay[cardsInPlay.Count - 1].CardValue)//Card values equal
             {
                 valid = true;
             }
-            else if (pHand[index].CardSuit == cardsInPlay[cardsInPlay.Count - 1].CardSuit)//Card suits equal
+            else if (playerHand[index].CardSuit == cardsInPlay[cardsInPlay.Count - 1].CardSuit)//Card suits equal
             {
                 valid = true;
             }
 
             if (valid)
             {   //Moves the card from hand to the cards in play
-                cardsInPlay.Add(pHand[index]);
-                visibleCardsInPlay.Add(pVisibleHand[index]);
-                pHand.RemoveAt(index);
-                table.Children.Remove(pVisibleHand[index]);
-                pVisibleHand.Remove(pVisibleHand[index]);
+                cardsInPlay.Add(playerHand[index]);
+                visibleCardsInPlay.Add(playerVisibleHand[index]);
+                playerHand.RemoveAt(index);
+                Canvas.SetTop(visibleCardsInPlay[visibleCardsInPlay.Count - 1], 80);     //Sets played card position
+                Canvas.SetLeft(visibleCardsInPlay[visibleCardsInPlay.Count - 1], 350);
+                table.Children.Remove(playerVisibleHand[index]);
+                table.Children.Add(visibleCardsInPlay[visibleCardsInPlay.Count - 1]);    //Adds card to the center of the board
+                playerVisibleHand.Remove(playerVisibleHand[index]);
+                Redraw(playerVisibleHand);
             }
             else
             {
                 MessageBox.Show("Invalid");
             }
         }
+        //Dealer AI
         private void btnDeck_Click(object sender, RoutedEventArgs e)
         {
-            AddCard(1, pHand, pVisibleHand);
+            AddCard("player", playerHand, playerVisibleHand);
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Redraw(playerVisibleHand);
         }
     }
 }
