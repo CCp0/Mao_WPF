@@ -1,7 +1,6 @@
 C:\Users\chris\OneDrive - Institute of Technology Sligo\OBJ Labs\Semester 2\Project\Mao\Mao\bin\Debug\Mao.exe.config
 C:\Users\chris\OneDrive - Institute of Technology Sligo\OBJ Labs\Semester 2\Project\Mao\Mao\bin\Debug\Mao.exe
 C:\Users\chris\OneDrive - Institute of Technology Sligo\OBJ Labs\Semester 2\Project\Mao\Mao\bin\Debug\Mao.pdb
-C:\Users\chris\OneDrive - Institute of Technology Sligo\OBJ Labs\Semester 2\Project\Mao\Mao\obj\Debug\Mao.csproj.AssemblyReference.cache
 C:\Users\chris\OneDrive - Institute of Technology Sligo\OBJ Labs\Semester 2\Project\Mao\Mao\obj\Debug\MainWindow.g.cs
 C:\Users\chris\OneDrive - Institute of Technology Sligo\OBJ Labs\Semester 2\Project\Mao\Mao\obj\Debug\App.g.cs
 C:\Users\chris\OneDrive - Institute of Technology Sligo\OBJ Labs\Semester 2\Project\Mao\Mao\obj\Debug\Mao_MarkupCompile.cache
@@ -59,3 +58,5 @@ C:\Users\S00210475\OneDrive - Institute of Technology Sligo\OBJ Labs\Semester 2\
 C:\Users\S00210475\OneDrive - Institute of Technology Sligo\OBJ Labs\Semester 2\Project\Mao_WPF\Mao\obj\Debug\Mao.exe
 C:\Users\S00210475\OneDrive - Institute of Technology Sligo\OBJ Labs\Semester 2\Project\Mao_WPF\Mao\obj\Debug\Mao.pdb
 C:\Users\chris\OneDrive - Institute of Technology Sligo\OBJ Labs\Semester 2\Project\Mao_WPF\Mao\obj\Debug\Mao.csprojAssemblyReference.cache
+C:\Users\chris\OneDrive - Institute of Technology Sligo\OBJ Labs\Semester 2\Project\Mao\Mao\obj\Debug\Mao.csprojAssemblyReference.cache
+C:\Users\chris\OneDrive - Institute of Technology Sligo\OBJ Labs\Semester 2\Project\Mao\Mao\obj\Debug\App.baml

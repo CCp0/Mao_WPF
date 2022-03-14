@@ -56,11 +56,10 @@ namespace Mao
             Button card = new Button() { Tag = newCard.CardName};   //Rectangle card representation
             hand.Add(newCard);                                      //Adding cards to hand
             visibleHand.Add(card);                                  //Adding rectangles to hand
-            Style removeHoverEffect = (Style)Resources["ButtonStyle"];
-            card.Style = removeHoverEffect;
+            card.Style = (Style)FindResource("ButtonStyle");        //Removes default grey hover background
             string cardFilePath = @"..\..\images\cards\" + newCard.CardName + ".png";
             card.Height = 100;
-            card.Width = 70;                            //Removes default hover background
+            card.Width = 70;                            
             if (recipient == "player")                  //If Player Hand
             {
                 //Card Position
