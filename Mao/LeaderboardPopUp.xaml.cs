@@ -23,5 +23,16 @@ namespace Mao
         {
             InitializeComponent();
         }
+
+        private void Grid_Loaded(object sender, RoutedEventArgs e)
+        {
+            LeaderboardData db = new LeaderboardData();
+
+            var query = from p in db.Players
+                        orderby p.Streak descending
+                        select new { UserName = p.Username, Streak = p.Streak, Date = p.Date };
+            var results = query.ToList();
+            dgLeaderboard.ItemsSource = results;
+        }
     }
 }

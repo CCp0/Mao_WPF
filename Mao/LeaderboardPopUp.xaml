@@ -6,7 +6,11 @@
         xmlns:local="clr-namespace:Mao"
         mc:Ignorable="d"
         Title="LeaderboardPopUp" Height="400" Width="400">
-    <Grid>
-        
+    <Grid Loaded="Grid_Loaded">
+        <Grid.RowDefinitions>
+            <RowDefinition Height ="10*"/>
+            <RowDefinition Height ="90*"/>
+        </Grid.RowDefinitions>
+        <DataGrid Name="dgLeaderboard" Grid.Row="1" HorizontalAlignment="Center" Height="300" VerticalAlignment="Center" Width="350"/>
     </Grid>
 </Window>
