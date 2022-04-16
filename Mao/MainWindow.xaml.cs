@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -24,6 +25,7 @@ namespace Mao
     /// </summary>
     public partial class MainWindow : Window
     {
+        string errFilePath = "../ErrorLog.txt";
         double xPHandLocation = 150;                            //Sets the distance from the left where the hand is shown
         double xDHandLocation = 200;
         Deck deck = new Deck();                                 //Creates Deck
@@ -37,6 +39,10 @@ namespace Mao
         List<Card> cardsInPlay = new List<Card>();
         List<Button> visibleCardsInPlay = new List<Button>();
         Card topCard;
+
+        //Changable variables for rules
+        int finalCard = 0, semiLastCard = 1;                    //Sets when player has to click mao or mao mao
+        int handSize = 7;                                       //Sets the handSize
         public MainWindow()
         {
             InitializeComponent();
@@ -45,11 +51,19 @@ namespace Mao
         //Populating the table with cards
         public void GenerateTable()
         { //General Rule Varaibles
-            deck.Shuffle();
-            int handSize = 24;
-            PlayerHand(handSize);
-            DealerHand(handSize);
-            CardsInPlay();
+            try
+            {
+                deck.Shuffle();
+                PlayerHand(handSize);
+                DealerHand(handSize);
+                CardsInPlay();
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show("The following error has occurred: " + err.Message);
+                string text = "\n" + DateTime.Now + " " + err.Message;
+                File.AppendAllText(errFilePath, text);
+            }
         }
         //Hand Methods
         //Takes card from the deck
@@ -98,9 +112,11 @@ namespace Mao
                 CardImage(card, cardFilePath);
                 table.Children.Add(card);                               //Adding the cards to the table
             }
-            catch(Exception err)
+            catch (Exception err)
             {
                 MessageBox.Show("The following error has occurred: " + err.Message);
+                string text = "\n" + DateTime.Now + " " + err.Message;
+                File.AppendAllText(errFilePath, text);
             }
         }
         public void Redraw(string player, List<Button> hand)
@@ -144,6 +160,8 @@ namespace Mao
             catch (Exception err)
             {
                 MessageBox.Show("The following error has occurred: " + err.Message);
+                string text = "\n" + DateTime.Now + " " + err.Message;
+                File.AppendAllText(errFilePath, text);
             }
         }
         //Initial population of player hand
@@ -165,110 +183,173 @@ namespace Mao
         //Initial population of dealer hand
         public void DealerHand(int handSize)
         {
-            string playerType = "dealer";
-            for (int i = 0; i < handSize; i++)
+            try
             {
-                AddCard(playerType, dealerHand, dealerVisibleHand);
+                string playerType = "dealer";
+                for (int i = 0; i < handSize; i++)
+                {
+                    AddCard(playerType, dealerHand, dealerVisibleHand);
+                }
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show("The following error has occurred: " + err.Message);
+                string text = "\n" + DateTime.Now + " " + err.Message;
+                File.AppendAllText(errFilePath, text);
             }
         }
         public void CardsInPlay()
         {
-            string playerType = "board";
-            AddCard(playerType, cardsInPlay, visibleCardsInPlay);
+            try
+            {
+                string playerType = "board";
+                AddCard(playerType, cardsInPlay, visibleCardsInPlay);
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show("The following error has occurred: " + err.Message);
+                string text = "\n" + DateTime.Now + " " + err.Message;
+                File.AppendAllText(errFilePath, text);
+            }
         }
         private void Card_Click(object sender, RoutedEventArgs e)
         {
-            var card = ((Button)sender).Tag;                        //Calls the tag/cardname given to the card button in the PlayerHand method
-            bool valid = false;
-            //Card Index Finder
-            int index = -1;
-            bool indexFound = false;
-            do
+            try
             {
-                index++;
-                if (playerHand[index].CardName == card.ToString())
+                var card = ((Button)sender).Tag;                        //Calls the tag/cardname given to the card button in the PlayerHand method
+                bool valid = false;
+                //Card Index Finder
+                int index = -1;
+                bool indexFound = false;
+                do
                 {
-                    indexFound = true;
+                    index++;
+                    if (playerHand[index].CardName == card.ToString())
+                    {
+                        indexFound = true;
+                    }
+                } while (indexFound == false);
+                //Card Placement Validation
+                if (playerHand[index].CardValue == cardsInPlay[cardsInPlay.Count - 1].CardValue)//Card values equal
+                {
+                    valid = true;
                 }
-            } while (indexFound == false);
-            //Card Placement Validation
-            if (playerHand[index].CardValue == cardsInPlay[cardsInPlay.Count - 1].CardValue)//Card values equal
-            {
-                valid = true;
-            }
-            else if (playerHand[index].CardSuit == cardsInPlay[cardsInPlay.Count - 1].CardSuit)//Card suits equal
-            {
-                valid = true;
-            }
+                else if (playerHand[index].CardSuit == cardsInPlay[cardsInPlay.Count - 1].CardSuit)//Card suits equal
+                {
+                    valid = true;
+                }
 
-            if (valid)
-            {   //Moves the card from hand to the cards in play
-                cardsInPlay.Add(playerHand[index]);
-                visibleCardsInPlay.Add(playerVisibleHand[index]);
-                playerHand.RemoveAt(index);
-                Canvas.SetTop(visibleCardsInPlay[visibleCardsInPlay.Count - 1], 80);     //Sets played card position
-                Canvas.SetLeft(visibleCardsInPlay[visibleCardsInPlay.Count - 1], 350);
-                table.Children.Remove(playerVisibleHand[index]);
-                table.Children.Add(visibleCardsInPlay[visibleCardsInPlay.Count - 1]);    //Adds card to the center of the board
-                playerVisibleHand.Remove(playerVisibleHand[index]);
-                Redraw("player", playerVisibleHand);                                     //Condensing hand
+                if (valid)
+                {   //Moves the card from hand to the cards in play
+                    cardsInPlay.Add(playerHand[index]);
+                    visibleCardsInPlay.Add(playerVisibleHand[index]);
+                    playerHand.RemoveAt(index);
+                    Canvas.SetTop(visibleCardsInPlay[visibleCardsInPlay.Count - 1], 80);     //Sets played card position
+                    Canvas.SetLeft(visibleCardsInPlay[visibleCardsInPlay.Count - 1], 350);
+                    table.Children.Remove(playerVisibleHand[index]);
+                    table.Children.Add(visibleCardsInPlay[visibleCardsInPlay.Count - 1]);    //Adds card to the center of the board
+                    playerVisibleHand.Remove(playerVisibleHand[index]);
+                    Redraw("player", playerVisibleHand);                                     //Condensing hand
+                }
+                else
+                {
+                    MessageBox.Show("Penalty for blankidy blank");
+                    AddCard("player", playerHand, playerVisibleHand);
+                }
+                //Dealers Turn
+                DealerAI();
             }
-            else
+            catch (Exception err)
             {
-                MessageBox.Show("Penalty for blankidy blank");
-                AddCard("player", playerHand, playerVisibleHand);
+                MessageBox.Show("The following error has occurred: " + err.Message);
+                string text = "\n" + DateTime.Now + " " + err.Message;
+                File.AppendAllText(errFilePath, text);
             }
-            //Dealers Turn
-            DealerAI();
         }
         //Dealer AI
         private void DealerAI()
         {
             int index = -1;
             bool valid = false;
-            do
+            try
             {
-                index++;
-                if (dealerHand[index].CardSuit == cardsInPlay[cardsInPlay.Count - 1].CardSuit || dealerHand[index].CardValue == cardsInPlay[cardsInPlay.Count - 1].CardValue)
+                do
                 {
-                    //Flipping and resizing dealer card
-                    string cardFilePath = @"..\..\images\cards\" + dealerHand[index].CardName + ".png";
-                    dealerVisibleHand[index].Height = 100;
-                    dealerVisibleHand[index].Width = 70;
-                    CardImage(dealerVisibleHand[index], cardFilePath);
-                    //Moves the card from hand to the cards in play
-                    cardsInPlay.Add(dealerHand[index]);
-                    visibleCardsInPlay.Add(dealerVisibleHand[index]);
-                    dealerHand.RemoveAt(index);
-                    Canvas.SetTop(visibleCardsInPlay[visibleCardsInPlay.Count - 1], 80);     //Sets played card position
-                    Canvas.SetLeft(visibleCardsInPlay[visibleCardsInPlay.Count - 1], 350);
-                    table.Children.Remove(dealerVisibleHand[index]);
-                    table.Children.Add(visibleCardsInPlay[visibleCardsInPlay.Count - 1]);    //Adds card to the center of the board
-                    dealerVisibleHand.Remove(dealerVisibleHand[index]);
-                    valid = true;
-                    Redraw("dealer", dealerVisibleHand);                                     //Condensing hand
+                    index++;
+                    if (dealerHand[index].CardSuit == cardsInPlay[cardsInPlay.Count - 1].CardSuit || dealerHand[index].CardValue == cardsInPlay[cardsInPlay.Count - 1].CardValue)
+                    {
+                        //Flipping and resizing dealer card
+                        string cardFilePath = @"..\..\images\cards\" + dealerHand[index].CardName + ".png";
+                        dealerVisibleHand[index].Height = 100;
+                        dealerVisibleHand[index].Width = 70;
+                        CardImage(dealerVisibleHand[index], cardFilePath);
+                        //Moves the card from hand to the cards in play
+                        cardsInPlay.Add(dealerHand[index]);
+                        visibleCardsInPlay.Add(dealerVisibleHand[index]);
+                        dealerHand.RemoveAt(index);
+                        Canvas.SetTop(visibleCardsInPlay[visibleCardsInPlay.Count - 1], 80);     //Sets played card position
+                        Canvas.SetLeft(visibleCardsInPlay[visibleCardsInPlay.Count - 1], 350);
+                        table.Children.Remove(dealerVisibleHand[index]);
+                        table.Children.Add(visibleCardsInPlay[visibleCardsInPlay.Count - 1]);    //Adds card to the center of the board
+                        dealerVisibleHand.Remove(dealerVisibleHand[index]);
+                        valid = true;
+                        Redraw("dealer", dealerVisibleHand);                                     //Condensing hand
+                    }
+                }
+                while (valid == false && index != dealerHand.Count - 1);
+                if (valid == false)//If dealer couldn't place draw a card
+                {
+                    AddCard("dealer", dealerHand, dealerVisibleHand);
                 }
             }
-            while (valid == false && index != dealerHand.Count - 1);
-            if (valid == false)//If dealer couldn't place draw a card
+            catch (Exception err)
             {
-                AddCard("dealer", dealerHand, dealerVisibleHand);
+                MessageBox.Show("The following error has occurred: " + err.Message);
+                string text = "\n" + DateTime.Now + " " + err.Message;
+                File.AppendAllText(errFilePath, text);
             }
         }
         private void btnDeck_Click(object sender, RoutedEventArgs e)
         {
-            AddCard("player", playerHand, playerVisibleHand);
-            DealerAI();
+            try
+            {
+                AddCard("player", playerHand, playerVisibleHand);
+                DealerAI();
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show("The following error has occurred: " + err.Message);
+                string text = "\n" + DateTime.Now + " " + err.Message;
+                File.AppendAllText(errFilePath, text);
+            }
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Redraw("player", playerVisibleHand);
+            try
+            {
+                Redraw("player", playerVisibleHand);
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show("The following error has occurred: " + err.Message);
+                string text = "\n" + DateTime.Now + " " + err.Message;
+                File.AppendAllText(errFilePath, text);
+            }
         }
         private void CardImage(Button card, string cardFilePath)
         {
-            ImageBrush imgBrush = new ImageBrush();
-            imgBrush.ImageSource = new BitmapImage(new Uri(cardFilePath, UriKind.Relative));
-            card.Background = imgBrush;
+            try
+            {
+                ImageBrush imgBrush = new ImageBrush();
+                imgBrush.ImageSource = new BitmapImage(new Uri(cardFilePath, UriKind.Relative));
+                card.Background = imgBrush;
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show("The following error has occurred: " + err.Message);
+                string text = "\n" + DateTime.Now + " " + err.Message;
+                File.AppendAllText(errFilePath, text);
+            }
         }
     }
 }
