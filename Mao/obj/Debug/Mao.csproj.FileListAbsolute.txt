@@ -86,3 +86,5 @@ C:\Users\chris\OneDrive - Institute of Technology Sligo\OBJ Labs\Semester 2\Proj
 C:\Users\chris\OneDrive - Institute of Technology Sligo\OBJ Labs\Semester 2\Project\Mao\Mao\bin\Debug\EntityFramework.SqlServer.xml
 C:\Users\chris\OneDrive - Institute of Technology Sligo\OBJ Labs\Semester 2\Project\Mao\Mao\obj\Debug\Mao.csproj.AssemblyReference.cache
 C:\Users\chris\OneDrive - Institute of Technology Sligo\OBJ Labs\Semester 2\Project\Mao\Mao\obj\Debug\Mao.csproj.CopyComplete
+C:\Users\chris\OneDrive - Institute of Technology Sligo\OBJ Labs\Semester 2\Project\Mao\Mao\obj\Debug\LeaderboardPopUp.g.cs
+C:\Users\chris\OneDrive - Institute of Technology Sligo\OBJ Labs\Semester 2\Project\Mao\Mao\obj\Debug\LeaderboardPopUp.baml

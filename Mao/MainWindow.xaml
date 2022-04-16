@@ -17,7 +17,7 @@
         <Label Content="Actions" HorizontalAlignment="Left" Margin="34,5,0,0" VerticalAlignment="Top"/>
         <Button x:Name="btnDeck" HorizontalAlignment="Left" Margin="233,190,0,0" VerticalAlignment="Top" Width="52" Height="77" Style="{StaticResource ButtonStyle}" Background="{StaticResource AddButtonImageBrush}" Click="btnDeck_Click"></Button>
         <Image HorizontalAlignment="Left" Height="100" Margin="367,10,0,0" VerticalAlignment="Top" Width="72" Source="images/icons/dealer.png"/>
-        <Button x:Name="btnLeaderboard" Content="Leaderboard" HorizontalAlignment="Left" Margin="694,11,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="btnLeaderboard" Content="Leaderboard" HorizontalAlignment="Left" Margin="694,11,0,0" VerticalAlignment="Top" Width="75" Click="btnLeaderboard_Click"/>
         <Label x:Name="lblStreak" Content="Streak: " HorizontalAlignment="Left" Margin="694,37,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Window>

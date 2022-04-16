@@ -352,6 +352,11 @@ namespace Mao
                 AddCard("player", playerHand, playerVisibleHand);
             }
         }
+        private void btnLeaderboard_Click(object sender, RoutedEventArgs e)
+        {
+            LeaderboardPopUp leaderboardWindow = new LeaderboardPopUp();
+            leaderboardWindow.Show();
+        }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             try
