@@ -41,8 +41,9 @@ namespace Mao
         Card topCard;
 
         //Changable variables for rules
-        int finalCard = 0, semiLastCard = 1;                    //Sets when player has to click mao or mao mao
-        int handSize = 7;                                       //Sets the handSize
+        int finalCard = 1, semiFinalCard = 2;                   //Sets when player has to click mao or mao mao
+        bool mao = false, maoMao = false;                       //Bools to help check if the button press of mao or mao mao is appropriate
+        int handSize = 3;                                       //Sets the handSize
         public MainWindow()
         {
             InitializeComponent();
@@ -221,6 +222,7 @@ namespace Mao
                 //Card Index Finder
                 int index = -1;
                 bool indexFound = false;
+                string penaltyName = "disorderly placement";
                 do
                 {
                     index++;
@@ -232,13 +234,20 @@ namespace Mao
                 //Card Placement Validation
                 if (playerHand[index].CardValue == cardsInPlay[cardsInPlay.Count - 1].CardValue)//Card values equal
                 {
-                    valid = true;
+                    valid = PenaltyForMao(valid);
+                    if(valid == false)
+                    {
+                        penaltyName = "mao";
+                    }
                 }
                 else if (playerHand[index].CardSuit == cardsInPlay[cardsInPlay.Count - 1].CardSuit)//Card suits equal
                 {
-                    valid = true;
+                    valid = PenaltyForMao(valid);
+                    if (valid == false)
+                    {
+                        penaltyName = "mao";
+                    }
                 }
-
                 if (valid)
                 {   //Moves the card from hand to the cards in play
                     cardsInPlay.Add(playerHand[index]);
@@ -253,7 +262,7 @@ namespace Mao
                 }
                 else
                 {
-                    MessageBox.Show("Penalty for blankidy blank");
+                    MessageBox.Show("Penalty for " + penaltyName);
                     AddCard("player", playerHand, playerVisibleHand);
                 }
                 //Dealers Turn
@@ -266,7 +275,6 @@ namespace Mao
                 File.AppendAllText(errFilePath, text);
             }
         }
-        //Dealer AI
         private void DealerAI()
         {
             int index = -1;
@@ -301,6 +309,8 @@ namespace Mao
                 {
                     AddCard("dealer", dealerHand, dealerVisibleHand);
                 }
+                mao = false;    //Mao and mao mao buttons are reset for the player
+                maoMao = false;
             }
             catch (Exception err)
             {
@@ -321,6 +331,25 @@ namespace Mao
                 MessageBox.Show("The following error has occurred: " + err.Message);
                 string text = "\n" + DateTime.Now + " " + err.Message;
                 File.AppendAllText(errFilePath, text);
+            }
+        }
+
+        private void btnMao_Click(object sender, RoutedEventArgs e)
+        {
+            mao = true;                                                 //Changes mao to true, this will be dealt with in the card_click method when playing the last card
+            if(playerHand.Count != finalCard)                           //Penalty for pressing the button at the wrong time
+            {
+                MessageBox.Show("Penalty for mao");
+                AddCard("player", playerHand, playerVisibleHand);
+            }
+        }
+        private void btnMaoMao_Click(object sender, RoutedEventArgs e)
+        {
+            maoMao = true;                                              //Same as above but using maoMao
+            if (playerHand.Count != semiFinalCard)
+            {
+                MessageBox.Show("Penalty for mao");
+                AddCard("player", playerHand, playerVisibleHand);
             }
         }
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -350,6 +379,20 @@ namespace Mao
                 string text = "\n" + DateTime.Now + " " + err.Message;
                 File.AppendAllText(errFilePath, text);
             }
+        }
+
+        //Penalty methods
+        private bool PenaltyForMao(bool valid)
+        {
+            if ((playerHand.Count == finalCard && mao) || (playerHand.Count == semiFinalCard && maoMao))//If its the last or second last card
+            {
+                valid = true;
+            }
+            else if (playerHand.Count != semiFinalCard && playerHand.Count != finalCard)
+            {
+                valid = true; //For every card that isnt the mao/last cards
+            }
+            return valid;
         }
     }
 }
