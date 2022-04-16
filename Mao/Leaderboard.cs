@@ -9,16 +9,15 @@ namespace Mao
 {
     public class Leaderboard
     {
-        public string username { get; set; }
-        public int streak { get; set; }
-        public DateTime date {get;set;}
+        public int PlayerID { get; set; }
+        public string Username { get; set; }
+        public int Streak { get; set; }
+        public DateTime Date {get;set;}
     }
-    public class LeaderboardData:DbContext
+    public class LeaderboardData : DbContext
     {
         public LeaderboardData() : base("LeaderboardData") { }
 
-
-        public DbSet<Leaderboard> XYZ { get; set; }
+        public DbSet<Leaderboard> Players { get; set; }
     }
 }
-
