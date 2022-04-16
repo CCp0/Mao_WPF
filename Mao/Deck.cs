@@ -3,20 +3,78 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 namespace Mao
 {
     public class Deck
     {
+            private int currentCard;  //used to keep track for current card for getting next card in deck
+
+            public List<Card> Cards { get; set; }
+
+            public Deck()
+            {
+                Cards = new List<Card>();
+                string[] suits = { "Hearts", "Spades", "Diamonds", "Clubs" };
+                string[] faces = { "Ace", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King" };
+
+                for (int i = 0; i < suits.Length; i++)
+                {
+                    for (int j = 0; j < faces.Length; j++)
+                    {
+                        Card c = new Card();
+                        c.CardSuit = suits[i];
+                        c.CardFace = faces[j];
+                        c.CardName = faces[j] + " of " + suits[i];
+                        c.CardValue = j + 1;
+                        Cards.Add(c);
+                    }
+                }
+            }
+            public void RefreshDeck(List<Card> cardsReturned)
+            {
+            Cards.Clear();
+            currentCard = 0;
+                for(int i = 0; i < cardsReturned.Count - 1; i++) //Returns all cards except the top one
+                {
+                    Cards.Add(cardsReturned[i]);
+                }
+            Shuffle();
+            }
+            public void Shuffle()
+            {
+                Random r = new Random();
+
+                for (int i = 0; i < Cards.Count; i++)
+                {
+                //Card temp = Cards[randomNumber];
+                //Cards[randomNumber] = Cards[i];
+                //Cards[i] = temp;
+                Cards = Cards.OrderBy(item => r.Next(0, Cards.Count)).ToList();
+                }
+            }
+            public Card GetNextCard()
+            {
+                return Cards[currentCard++];
+            }
+            public void DisplayCards()
+            {
+                foreach (Card c in Cards)
+                {
+                    Console.WriteLine("{0} of {1}", c.CardName, c.CardSuit);
+                }
+            }
+        }
+        public class Deck2
+        {
         //All made card variables 
-        private static List<string> hand = new List<string>(); //List of cards out of deck
-        public Deck()
+        public static List<string> hand = new List<string>(); //List of cards out of deck
+        public Deck2()
         {
 
         }
         public string CardName { get; set; } //Card name (e.g Ace, two, three)
         public string CardSuit { get; set; } //Card suit (e.g hearts, spades)
-        public int CardValue { get; set; }  //Card score or value
+        public int CardValue { get; set; }   //Card score or value
         public void DrawCard()
         {
             //Declaration of variables
