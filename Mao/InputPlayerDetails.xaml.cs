@@ -1,16 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using Newtonsoft.Json;
+using System.IO;
 
 namespace Mao
 {
@@ -19,22 +10,35 @@ namespace Mao
     /// </summary>
     public partial class InputPlayerDetails : Window
     {
+        string errFilePath = "../ErrorLog.txt", lbJSONfilePath = "../LeaderboardJSON.txt";
         public InputPlayerDetails()
         {
             InitializeComponent();
         }
         private void btnSubmit_Click(object sender, RoutedEventArgs e)
         {
-            LeaderboardData db = new LeaderboardData();
-            using (db)
+            try
             {
-                //Base population of leaderboard
-                Leaderboard newEntry = new Leaderboard() { PlayerID = 1, Username = tbxNameInput.Text, Streak = (int)((MainWindow)Application.Current.MainWindow).lblStreak.Content, Date = DateTime.Now };
-                db.Players.Add(newEntry);
-                db.SaveChanges();
-                //Reset game
-                System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
-                Application.Current.Shutdown();
+                LeaderboardData db = new LeaderboardData();
+                using (db)
+                {
+                    //Base population of leaderboard
+                    Leaderboard newEntry = new Leaderboard() { PlayerID = 1, Username = tbxNameInput.Text, Streak = (int)((MainWindow)Application.Current.MainWindow).lblStreak.Content, Date = DateTime.Now };
+                    db.Players.Add(newEntry);
+                    db.SaveChanges();
+                    //Sending the table to JSON text file
+                    string JSONstring = JsonConvert.SerializeObject(db.Players);
+                    File.WriteAllText(lbJSONfilePath, JSONstring);
+                    //Reset game
+                    System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
+                    Application.Current.Shutdown();
+                }
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show("The following error has occurred: " + err.Message);
+                string text = "\n" + DateTime.Now + " " + err.Message;
+                File.AppendAllText(errFilePath, text);
             }
         }
     }

@@ -14,6 +14,7 @@ namespace Mao
 
         public Deck()
         {
+            Cards = new List<Card>();
             InitializeDeck();
         }
         public void RefreshDeck(List<Card> cardsReturned)
@@ -77,7 +78,7 @@ namespace Mao
         {
             try
             {
-                Cards = new List<Card>();
+                Cards.Clear();
                 string[] suits = { "Hearts", "Spades", "Diamonds", "Clubs" };
                 string[] faces = { "Ace", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King" };
 

@@ -7,13 +7,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 //Links
 //https://stackoverflow.com/questions/57146213/create-list-of-rectangles-with-properties
@@ -43,7 +38,7 @@ namespace Mao
         //Changable variables for rules
         int finalCard = 1, semiFinalCard = 2, streak = 0;       //Sets when player has to click mao or mao mao and the players' win streak
         bool mao = false, maoMao = false;                       //Bools to help check if the button press of mao or mao mao is appropriate
-        int handSize = 3;                                       //Sets the handSize
+        int handSize = 7;                                       //Sets the handSize
         public MainWindow()
         {
             InitializeComponent();
@@ -214,7 +209,7 @@ namespace Mao
                 File.AppendAllText(errFilePath, text);
             }
         }
-        private void Card_Click(object sender, RoutedEventArgs e)
+        public void Card_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -277,7 +272,7 @@ namespace Mao
                 File.AppendAllText(errFilePath, text);
             }
         }
-        private void DealerAI()
+        public void DealerAI()
         {
             int index = -1;
             bool valid = false;
@@ -322,7 +317,7 @@ namespace Mao
                 File.AppendAllText(errFilePath, text);
             }
         }
-        private void btnDeck_Click(object sender, RoutedEventArgs e)
+        public void btnDeck_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -387,67 +382,95 @@ namespace Mao
                 File.AppendAllText(errFilePath, text);
             }
         }
-        //Events for win and loss
-        public void WinCheck()
+
+        private void btnConcede_Click(object sender, RoutedEventArgs e)
         {
-            if(playerHand.Count == 0)
+            WinCheck(true);
+        }
+
+        //Events for win and loss
+        public void WinCheck(bool concede = false)
+        {
+            try
             {
-                streak++;
-                lblStreak.Content = streak;
-                MessageBox.Show("Congrats you won!!! Time for the next round");
-                ValueChanger();
-                cardsInPlay.AddRange(playerHand);
-                cardsInPlay.AddRange(dealerHand);
-                foreach(Card card in cardsInPlay)
+                if (playerHand.Count == 0)
                 {
-                    MessageBox.Show(card.CardName);
+                    streak++;
+                    lblStreak.Content = streak;
+                    MessageBox.Show("Congrats you won!!! Time for the next round");
+                    //Changes the rules around a bit
+                    ValueChanger();
+                    //Clear board
+                    playerHand.Clear();
+                    playerVisibleHand.Clear();
+                    dealerHand.Clear();
+                    dealerVisibleHand.Clear();
+                    cardsInPlay.Clear();
+                    visibleCardsInPlay.Clear();
+                    //Board reset
+                    deck.InitializeDeck();
+                    GenerateTable();
                 }
-                //Clear board
-                playerHand.Clear();
-                playerVisibleHand.Clear();
-                dealerHand.Clear();
-                dealerVisibleHand.Clear();
-                cardsInPlay.Clear();
-                visibleCardsInPlay.Clear();
-                //Board reset
-                deck.InitializeDeck();
-                GenerateTable();
+                else if (dealerHand.Count == 0 || concede == true)
+                {
+                    MessageBox.Show("Bummer, you lost. Time for the next round");
+                    InputPlayerDetails inputPlayerWindow = new InputPlayerDetails();
+                    inputPlayerWindow.Show();
+                }
             }
-            else if(dealerHand.Count == 0)
+            catch (Exception err)
             {
-                MessageBox.Show("Bummer, you lost. Time for the next round");
-                InputPlayerDetails inputPlayerWindow = new InputPlayerDetails();
-                inputPlayerWindow.Show();
+                MessageBox.Show("The following error has occurred: " + err.Message);
+                string text = "\n" + DateTime.Now + " " + err.Message;
+                File.AppendAllText(errFilePath, text);
             }
         }
         //Game changing methods
         private void ValueChanger()
         {
-            Random rnd = new Random();
-            int ruleChange = rnd.Next(0,3);
-            switch(ruleChange)
+            try
             {
-                case 0: 
-                    handSize = rnd.Next(5, 12);
-                    break;
-                case 1:
-                    finalCard = rnd.Next(1, 4);
-                    break;
-                case 2:
-                    semiFinalCard = rnd.Next(2, 5);
-                    break;
+                Random rnd = new Random();
+                int ruleChange = rnd.Next(0, 3);
+                switch (ruleChange)
+                {
+                    case 0:
+                        handSize = rnd.Next(5, 12);
+                        break;
+                    case 1:
+                        finalCard = rnd.Next(1, 4);
+                        break;
+                    case 2:
+                        semiFinalCard = rnd.Next(2, 5);
+                        break;
+                }
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show("The following error has occurred: " + err.Message);
+                string text = "\n" + DateTime.Now + " " + err.Message;
+                File.AppendAllText(errFilePath, text);
             }
         }
         //Penalty methods
         private bool PenaltyForMao(bool valid)
         {
-            if ((playerHand.Count == finalCard && mao) || (playerHand.Count == semiFinalCard && maoMao))//If its the last or second last card
+            try
             {
-                valid = true;
+                if ((playerHand.Count == finalCard && mao) || (playerHand.Count == semiFinalCard && maoMao))//If its the last or second last card
+                {
+                    valid = true;
+                }
+                else if (playerHand.Count != semiFinalCard && playerHand.Count != finalCard)
+                {
+                    valid = true; //For every card that isnt the mao/last cards
+                }
             }
-            else if (playerHand.Count != semiFinalCard && playerHand.Count != finalCard)
+            catch (Exception err)
             {
-                valid = true; //For every card that isnt the mao/last cards
+                MessageBox.Show("The following error has occurred: " + err.Message);
+                string text = "\n" + DateTime.Now + " " + err.Message;
+                File.AppendAllText(errFilePath, text);
             }
             return valid;
         }
