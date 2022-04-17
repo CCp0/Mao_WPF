@@ -14,7 +14,7 @@ namespace LeaderboardDataAdd
             using (db)
             {
                 //Base population of leaderboard
-                Leaderboard l1 = new Leaderboard() { PlayerID = 1, Username = "abc", Streak = 5, Date = new DateTime(2022, 4, 3, 1, 24, 0) };
+                Leaderboard l1 = new Leaderboard() { PlayerID = 1, Username = "ABC", Streak = 5, Date = new DateTime(2022, 4, 3, 1, 24, 0) };
                 Leaderboard l2 = new Leaderboard() { PlayerID = 2, Username = "DLR", Streak = 3, Date = new DateTime(2022, 3, 17, 1, 14, 0) };
                 Leaderboard l3 = new Leaderboard() { PlayerID = 3, Username = "CRD", Streak = 2, Date = new DateTime(2022, 7, 4, 3, 9, 0) };
                 db.Players.Add(l1);

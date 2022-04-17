@@ -1,0 +1,19 @@
+﻿<Window x:Class="Mao.InputPlayerDetails"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Mao"
+        mc:Ignorable="d"
+        Title="InputPlayerDetails" Height="111" Width="197">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height ="1*"/>
+            <RowDefinition Height ="1*"/>
+            <RowDefinition Height ="1*"/>
+        </Grid.RowDefinitions>
+        <Label Content="Input Player Name" HorizontalAlignment="Center" VerticalAlignment="Center" Width="110"/>
+        <TextBox x:Name="tbxNameInput" HorizontalAlignment="Center" Height="23" Grid.Row="1" Grid.Column="0" TextWrapping="Wrap" Text="" Width="70" MaxLength ="3"/>
+        <Button x:Name="btnSubmit" Content="Submit" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" Width="110" Click="btnSubmit_Click"/>
+    </Grid>
+</Window>

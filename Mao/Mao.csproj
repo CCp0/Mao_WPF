@@ -66,6 +66,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="InputPlayerDetails.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="LeaderboardPopUp.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -80,6 +84,9 @@
     </Compile>
     <Compile Include="Card.cs" />
     <Compile Include="Deck.cs" />
+    <Compile Include="InputPlayerDetails.xaml.cs">
+      <DependentUpon>InputPlayerDetails.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Leaderboard.cs" />
     <Compile Include="LeaderboardPopUp.xaml.cs">
       <DependentUpon>LeaderboardPopUp.xaml</DependentUpon>

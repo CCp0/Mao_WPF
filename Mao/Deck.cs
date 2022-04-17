@@ -14,31 +14,7 @@ namespace Mao
 
         public Deck()
         {
-            try
-            {
-                Cards = new List<Card>();
-                string[] suits = { "Hearts", "Spades", "Diamonds", "Clubs" };
-                string[] faces = { "Ace", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King" };
-
-                for (int i = 0; i < suits.Length; i++)
-                {
-                    for (int j = 0; j < faces.Length; j++)
-                    {
-                        Card c = new Card();
-                        c.CardSuit = suits[i];
-                        c.CardFace = faces[j];
-                        c.CardName = faces[j] + " of " + suits[i];
-                        c.CardValue = j + 1;
-                        Cards.Add(c);
-                    }
-                }
-            }
-            catch (Exception err)
-            {
-                DateTime date = DateTime.Now;
-                string text = "\n" + date + " " + err.Message;
-                File.AppendAllText(errFilePath, text);
-            }
+            InitializeDeck();
         }
         public void RefreshDeck(List<Card> cardsReturned)
         {
@@ -94,6 +70,34 @@ namespace Mao
             catch (Exception err)
             {
                 string text = "\n" + DateTime.Now + " " + err.Message;
+                File.AppendAllText(errFilePath, text);
+            }
+        }
+        public void InitializeDeck()
+        {
+            try
+            {
+                Cards = new List<Card>();
+                string[] suits = { "Hearts", "Spades", "Diamonds", "Clubs" };
+                string[] faces = { "Ace", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King" };
+
+                for (int i = 0; i < suits.Length; i++)
+                {
+                    for (int j = 0; j < faces.Length; j++)
+                    {
+                        Card c = new Card();
+                        c.CardSuit = suits[i];
+                        c.CardFace = faces[j];
+                        c.CardName = faces[j] + " of " + suits[i];
+                        c.CardValue = j + 1;
+                        Cards.Add(c);
+                    }
+                }
+            }
+            catch (Exception err)
+            {
+                DateTime date = DateTime.Now;
+                string text = "\n" + date + " " + err.Message;
                 File.AppendAllText(errFilePath, text);
             }
         }

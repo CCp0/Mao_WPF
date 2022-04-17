@@ -41,13 +41,14 @@ namespace Mao
         Card topCard;
 
         //Changable variables for rules
-        int finalCard = 1, semiFinalCard = 2;                   //Sets when player has to click mao or mao mao
+        int finalCard = 1, semiFinalCard = 2, streak = 0;       //Sets when player has to click mao or mao mao and the players' win streak
         bool mao = false, maoMao = false;                       //Bools to help check if the button press of mao or mao mao is appropriate
         int handSize = 3;                                       //Sets the handSize
         public MainWindow()
         {
             InitializeComponent();
             GenerateTable();
+            lblStreak.Content = streak;
         }
         //Populating the table with cards
         public void GenerateTable()
@@ -72,7 +73,7 @@ namespace Mao
         {
             try
             {
-                if (playerHand.Count + dealerHand.Count + cardsInPlay.Count == 52)//If all cards in the deck are exhausted
+                if (playerHand.Count + dealerHand.Count + cardsInPlay.Count == 51)//If all cards in the deck are exhausted
                 {
                     topCard = cardsInPlay[cardsInPlay.Count - 1];
                     deck.RefreshDeck(cardsInPlay);                      //Take cards in play and add to deck
@@ -265,6 +266,7 @@ namespace Mao
                     MessageBox.Show("Penalty for " + penaltyName);
                     AddCard("player", playerHand, playerVisibleHand);
                 }
+                WinCheck();
                 //Dealers Turn
                 DealerAI();
             }
@@ -311,6 +313,7 @@ namespace Mao
                 }
                 mao = false;    //Mao and mao mao buttons are reset for the player
                 maoMao = false;
+                WinCheck();
             }
             catch (Exception err)
             {
@@ -333,7 +336,6 @@ namespace Mao
                 File.AppendAllText(errFilePath, text);
             }
         }
-
         private void btnMao_Click(object sender, RoutedEventArgs e)
         {
             mao = true;                                                 //Changes mao to true, this will be dealt with in the card_click method when playing the last card
@@ -385,7 +387,57 @@ namespace Mao
                 File.AppendAllText(errFilePath, text);
             }
         }
-
+        //Events for win and loss
+        public void WinCheck()
+        {
+            if(playerHand.Count == 0)
+            {
+                streak++;
+                lblStreak.Content = streak;
+                MessageBox.Show("Congrats you won!!! Time for the next round");
+                ValueChanger();
+                cardsInPlay.AddRange(playerHand);
+                cardsInPlay.AddRange(dealerHand);
+                foreach(Card card in cardsInPlay)
+                {
+                    MessageBox.Show(card.CardName);
+                }
+                //Clear board
+                playerHand.Clear();
+                playerVisibleHand.Clear();
+                dealerHand.Clear();
+                dealerVisibleHand.Clear();
+                cardsInPlay.Clear();
+                visibleCardsInPlay.Clear();
+                //Board reset
+                deck.InitializeDeck();
+                GenerateTable();
+            }
+            else if(dealerHand.Count == 0)
+            {
+                MessageBox.Show("Bummer, you lost. Time for the next round");
+                InputPlayerDetails inputPlayerWindow = new InputPlayerDetails();
+                inputPlayerWindow.Show();
+            }
+        }
+        //Game changing methods
+        private void ValueChanger()
+        {
+            Random rnd = new Random();
+            int ruleChange = rnd.Next(0,3);
+            switch(ruleChange)
+            {
+                case 0: 
+                    handSize = rnd.Next(5, 12);
+                    break;
+                case 1:
+                    finalCard = rnd.Next(1, 4);
+                    break;
+                case 2:
+                    semiFinalCard = rnd.Next(2, 5);
+                    break;
+            }
+        }
         //Penalty methods
         private bool PenaltyForMao(bool valid)
         {
