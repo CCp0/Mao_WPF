@@ -317,7 +317,7 @@ namespace Mao
                 File.AppendAllText(errFilePath, text);
             }
         }
-        public void btnDeck_Click(object sender, RoutedEventArgs e)
+        private void btnDeck_Click(object sender, RoutedEventArgs e)
         {
             try
             {

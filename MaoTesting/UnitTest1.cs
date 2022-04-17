@@ -1,4 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Mao;
+using LeaderboardDataAdd;
 using System;
 
 namespace MaoTesting
@@ -7,8 +9,22 @@ namespace MaoTesting
     public class UnitTest1
     {
         [TestMethod]
-        public void TestMethod1()
+        public void CheckConcede()
         {
+            //Arrange
+
+            //Act
+            
+            //Assert
+
+        }
+        public void CheckCard()
+        {
+            //Arrange
+
+            //Act
+
+            //Assert
 
         }
     }

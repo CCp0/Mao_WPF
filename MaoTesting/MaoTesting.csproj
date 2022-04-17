@@ -55,6 +55,16 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LeaderboardDataAdd\LeaderboardDataAdd.csproj">
+      <Project>{9c145b9f-19e7-4a06-a3d0-8aafd71f0b3c}</Project>
+      <Name>LeaderboardDataAdd</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mao\Mao.csproj">
+      <Project>{a9542bf1-9b8c-4297-bc99-a16a7d019d63}</Project>
+      <Name>Mao</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
