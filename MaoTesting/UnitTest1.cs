@@ -12,7 +12,7 @@ namespace MaoTesting
         public void CheckConcede()
         {
             //Arrange
-
+            
             //Act
             
             //Assert
