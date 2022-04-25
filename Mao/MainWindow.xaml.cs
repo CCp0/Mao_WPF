@@ -116,7 +116,7 @@ namespace Mao
                 File.AppendAllText(errFilePath, text);
             }
         }
-        //
+        //Rebuilds the cards displayed to display in sequence
         public void Redraw(string player, List<Button> hand)
         {
             try
@@ -196,7 +196,7 @@ namespace Mao
                 File.AppendAllText(errFilePath, text);
             }
         }
-        //
+        //Sets up the first card in the center of the board
         public void CardsInPlay()
         {
             try
@@ -211,7 +211,7 @@ namespace Mao
                 File.AppendAllText(errFilePath, text);
             }
         }
-        //
+        //Plays card from hand if it passes the logic
         public void Card_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -275,7 +275,7 @@ namespace Mao
                 File.AppendAllText(errFilePath, text);
             }
         }
-        //
+        //All dealer logic for the dealers' play turn
         public void DealerAI()
         {
             int index = -1;
@@ -321,7 +321,7 @@ namespace Mao
                 File.AppendAllText(errFilePath, text);
             }
         }
-        //
+        //Draws a card when the deck is clicked
         private void btnDeck_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -336,7 +336,7 @@ namespace Mao
                 File.AppendAllText(errFilePath, text);
             }
         }
-        //
+        //Passes a rule check 
         private void btnMao_Click(object sender, RoutedEventArgs e)
         {
             mao = true;                                                 //Changes mao to true, this will be dealt with in the card_click method when playing the last card
@@ -346,7 +346,7 @@ namespace Mao
                 AddCard("player", playerHand, playerVisibleHand);
             }
         }
-        //
+        //Passes a rule check
         private void btnMaoMao_Click(object sender, RoutedEventArgs e)
         {
             maoMao = true;                                              //Same as above but using maoMao
@@ -356,27 +356,13 @@ namespace Mao
                 AddCard("player", playerHand, playerVisibleHand);
             }
         }
-        //
+        //Displays the leaderboard window
         private void btnLeaderboard_Click(object sender, RoutedEventArgs e)
         {
             LeaderboardPopUp leaderboardWindow = new LeaderboardPopUp();
             leaderboardWindow.Show();
         }
-        //
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                Redraw("player", playerVisibleHand);
-            }
-            catch (Exception err)
-            {
-                MessageBox.Show("The following error has occurred: " + err.Message);
-                string text = "\n" + DateTime.Now + " " + err.Message;
-                File.AppendAllText(errFilePath, text);
-            }
-        }
-        //
+        //Sets the image of a xaml card button
         private void CardImage(Button card, string cardFilePath)
         {
             try
@@ -392,7 +378,7 @@ namespace Mao
                 File.AppendAllText(errFilePath, text);
             }
         }
-        //
+        //Surrenders game
         private void btnConcede_Click(object sender, RoutedEventArgs e)
         {
             WinCheck(true);
