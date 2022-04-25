@@ -12,5 +12,10 @@ namespace Mao
             public string CardFace { get; set; }
             public string CardSuit { get; set; }
             public int CardValue { get; set; }
+
+        public override string ToString()
+        {
+            return $"{CardName}";
         }
+    }
     }

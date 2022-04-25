@@ -9,23 +9,32 @@ namespace MaoTesting
     public class UnitTest1
     {
         [TestMethod]
-        public void CheckConcede()
+        public void CheckStandardUnshuffledDeck()
         {
             //Arrange
-            
-            //Act
-            
-            //Assert
+            Deck d1 = new Deck();
+            Deck d2 = new Deck();
 
+            //Act
+            Card c1 = d1.GetNextCard();
+            Card c2 = d2.GetNextCard();
+
+            //Assert
+            Assert.IsTrue(c1.ToString() == c2.ToString());
         }
-        public void CheckCard()
+        [TestMethod]
+        public void TestDeckShuffle()
         {
             //Arrange
+            Deck d1 = new Deck();
+            Deck d2 = new Deck();
 
             //Act
-
+            d2.Shuffle();
+            Card c1 = d1.GetNextCard();
+            Card c2 = d2.GetNextCard();
             //Assert
-
+            Assert.IsFalse(c1.ToString() == c2.ToString());
         }
     }
 }

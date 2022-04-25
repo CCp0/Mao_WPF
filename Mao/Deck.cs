@@ -43,9 +43,6 @@ namespace Mao
 
                 for (int i = 0; i < Cards.Count; i++)
                 {
-                    //Card temp = Cards[randomNumber];
-                    //Cards[randomNumber] = Cards[i];
-                    //Cards[i] = temp;
                     Cards = Cards.OrderBy(item => r.Next(0, Cards.Count)).ToList();
                 }
             }
@@ -79,6 +76,7 @@ namespace Mao
             try
             {
                 Cards.Clear();
+                currentCard = 0;
                 string[] suits = { "Hearts", "Spades", "Diamonds", "Clubs" };
                 string[] faces = { "Ace", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King" };
 

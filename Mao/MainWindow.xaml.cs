@@ -116,6 +116,7 @@ namespace Mao
                 File.AppendAllText(errFilePath, text);
             }
         }
+        //
         public void Redraw(string player, List<Button> hand)
         {
             try
@@ -195,6 +196,7 @@ namespace Mao
                 File.AppendAllText(errFilePath, text);
             }
         }
+        //
         public void CardsInPlay()
         {
             try
@@ -209,6 +211,7 @@ namespace Mao
                 File.AppendAllText(errFilePath, text);
             }
         }
+        //
         public void Card_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -272,6 +275,7 @@ namespace Mao
                 File.AppendAllText(errFilePath, text);
             }
         }
+        //
         public void DealerAI()
         {
             int index = -1;
@@ -317,6 +321,7 @@ namespace Mao
                 File.AppendAllText(errFilePath, text);
             }
         }
+        //
         private void btnDeck_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -331,6 +336,7 @@ namespace Mao
                 File.AppendAllText(errFilePath, text);
             }
         }
+        //
         private void btnMao_Click(object sender, RoutedEventArgs e)
         {
             mao = true;                                                 //Changes mao to true, this will be dealt with in the card_click method when playing the last card
@@ -340,6 +346,7 @@ namespace Mao
                 AddCard("player", playerHand, playerVisibleHand);
             }
         }
+        //
         private void btnMaoMao_Click(object sender, RoutedEventArgs e)
         {
             maoMao = true;                                              //Same as above but using maoMao
@@ -349,11 +356,13 @@ namespace Mao
                 AddCard("player", playerHand, playerVisibleHand);
             }
         }
+        //
         private void btnLeaderboard_Click(object sender, RoutedEventArgs e)
         {
             LeaderboardPopUp leaderboardWindow = new LeaderboardPopUp();
             leaderboardWindow.Show();
         }
+        //
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -367,6 +376,7 @@ namespace Mao
                 File.AppendAllText(errFilePath, text);
             }
         }
+        //
         private void CardImage(Button card, string cardFilePath)
         {
             try
@@ -382,12 +392,11 @@ namespace Mao
                 File.AppendAllText(errFilePath, text);
             }
         }
-
+        //
         private void btnConcede_Click(object sender, RoutedEventArgs e)
         {
             WinCheck(true);
         }
-
         //Events for win and loss
         public void WinCheck(bool concede = false)
         {

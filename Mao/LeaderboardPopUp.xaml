@@ -11,6 +11,7 @@
             <RowDefinition Height ="10*"/>
             <RowDefinition Height ="90*"/>
         </Grid.RowDefinitions>
+        <Label HorizontalAlignment="Center" FontSize="24">Leaderboard</Label>
         <DataGrid Name="dgLeaderboard" Grid.Row="1" HorizontalAlignment="Center" Height="300" VerticalAlignment="Center" Width="350"/>
     </Grid>
 </Window>
