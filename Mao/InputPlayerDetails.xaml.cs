@@ -36,7 +36,7 @@ namespace Mao
             }
             catch (Exception err)
             {
-                MessageBox.Show("The following error has occurred: " + err.Message);
+                MessageBox.Show("The following error has occurred: " + err.Message + " Depending on the pc it seems to cause this error for the forced restart");
                 string text = "\n" + DateTime.Now + " " + err.Message;
                 File.AppendAllText(errFilePath, text);
             }

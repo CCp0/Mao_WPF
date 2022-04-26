@@ -30,3 +30,20 @@ C:\Users\chris\Mao_WPF\LeaderboardDataAdd\obj\Debug\LeaderboardDataAdd.csproj.Co
 C:\Users\chris\Mao_WPF\LeaderboardDataAdd\obj\Debug\LeaderboardDataAdd.csproj.CopyComplete
 C:\Users\chris\Mao_WPF\LeaderboardDataAdd\obj\Debug\LeaderboardDataAdd.exe
 C:\Users\chris\Mao_WPF\LeaderboardDataAdd\obj\Debug\LeaderboardDataAdd.pdb
+C:\Users\chris\OneDrive - Institute of Technology Sligo\OBJ Labs\Semester 2\Project\Mao_WPF\LeaderboardDataAdd\bin\Debug\LeaderboardDataAdd.exe.config
+C:\Users\chris\OneDrive - Institute of Technology Sligo\OBJ Labs\Semester 2\Project\Mao_WPF\LeaderboardDataAdd\bin\Debug\LeaderboardDataAdd.exe
+C:\Users\chris\OneDrive - Institute of Technology Sligo\OBJ Labs\Semester 2\Project\Mao_WPF\LeaderboardDataAdd\bin\Debug\LeaderboardDataAdd.pdb
+C:\Users\chris\OneDrive - Institute of Technology Sligo\OBJ Labs\Semester 2\Project\Mao_WPF\LeaderboardDataAdd\bin\Debug\EntityFramework.dll
+C:\Users\chris\OneDrive - Institute of Technology Sligo\OBJ Labs\Semester 2\Project\Mao_WPF\LeaderboardDataAdd\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\chris\OneDrive - Institute of Technology Sligo\OBJ Labs\Semester 2\Project\Mao_WPF\LeaderboardDataAdd\bin\Debug\Mao.exe
+C:\Users\chris\OneDrive - Institute of Technology Sligo\OBJ Labs\Semester 2\Project\Mao_WPF\LeaderboardDataAdd\bin\Debug\Newtonsoft.Json.dll
+C:\Users\chris\OneDrive - Institute of Technology Sligo\OBJ Labs\Semester 2\Project\Mao_WPF\LeaderboardDataAdd\bin\Debug\Mao.pdb
+C:\Users\chris\OneDrive - Institute of Technology Sligo\OBJ Labs\Semester 2\Project\Mao_WPF\LeaderboardDataAdd\bin\Debug\Mao.exe.config
+C:\Users\chris\OneDrive - Institute of Technology Sligo\OBJ Labs\Semester 2\Project\Mao_WPF\LeaderboardDataAdd\bin\Debug\EntityFramework.xml
+C:\Users\chris\OneDrive - Institute of Technology Sligo\OBJ Labs\Semester 2\Project\Mao_WPF\LeaderboardDataAdd\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\chris\OneDrive - Institute of Technology Sligo\OBJ Labs\Semester 2\Project\Mao_WPF\LeaderboardDataAdd\bin\Debug\Newtonsoft.Json.xml
+C:\Users\chris\OneDrive - Institute of Technology Sligo\OBJ Labs\Semester 2\Project\Mao_WPF\LeaderboardDataAdd\obj\Debug\LeaderboardDataAdd.csproj.AssemblyReference.cache
+C:\Users\chris\OneDrive - Institute of Technology Sligo\OBJ Labs\Semester 2\Project\Mao_WPF\LeaderboardDataAdd\obj\Debug\LeaderboardDataAdd.csproj.CoreCompileInputs.cache
+C:\Users\chris\OneDrive - Institute of Technology Sligo\OBJ Labs\Semester 2\Project\Mao_WPF\LeaderboardDataAdd\obj\Debug\LeaderboardDataAdd.csproj.CopyComplete
+C:\Users\chris\OneDrive - Institute of Technology Sligo\OBJ Labs\Semester 2\Project\Mao_WPF\LeaderboardDataAdd\obj\Debug\LeaderboardDataAdd.exe
+C:\Users\chris\OneDrive - Institute of Technology Sligo\OBJ Labs\Semester 2\Project\Mao_WPF\LeaderboardDataAdd\obj\Debug\LeaderboardDataAdd.pdb
